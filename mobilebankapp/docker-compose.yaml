@@ -1,0 +1,52 @@
+services:
+  bank_api_service:
+    #image: limabankapp
+    build: .
+    #build: the first time that i run docker-compose it will build the image.
+    #it will automatically rebuild the image(Dockerfile) if i make changes in the application
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mynetwork
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/mobilebankapp?allowPublicKeyRetrieval=true
+      - spring.datasource.username=fabiolima
+      - spring.datasource.password=fabiolima123
+      - server.error.include-message=always
+      - springdoc.swagger-ui.path=/limabank-ui.html
+
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - mynetwork
+    environment:
+      MYSQL_DATABASE: mobilebankapp
+      MYSQL_USER: fabiolima
+      MYSQL_PASSWORD: fabiolima123
+      MYSQL_ROOT_PASSWORD: fabiolimaR123
+
+    volumes:
+        - ./MySQL/initdb:/docker-entrypoint-initdb.d
+        - ./MySQL/data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysqldb  # Link to MySQL container
+      MYSQL_ROOT_PASSWORD: fabiolimaR123
+    ports:
+      - 8090:80  # Expose phpMyAdmin on port 8090
+    depends_on:
+      - mysqldb
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

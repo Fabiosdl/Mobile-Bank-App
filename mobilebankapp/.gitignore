@@ -22,7 +22,7 @@ target/
 # Ignore MySQL socket file
 MySQL/data/mysql.sock
 
-# You may also want to ignore the entire MySQL data directory
+# Ignore the entire MySQL data directory
 MySQL/data/
 
 

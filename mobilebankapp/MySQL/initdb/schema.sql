@@ -22,7 +22,7 @@ CREATE TABLE `user` (
   `user_details_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_USER_DETAIL_idx` (`user_details_id`),
-  CONSTRAINT `FK_USER_DETAIL` FOREIGN KEY (`user_details_id`) 
+  CONSTRAINT `FK_USER_DETAIL` FOREIGN KEY (`user_details_id`)
   REFERENCES `user_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -48,7 +48,7 @@ CREATE TABLE `transaction` (
   `transaction_date` varchar(40) DEFAULT NULL,
   `transaction_status` varchar(45) DEFAULT NULL,
   `account_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),  
+  PRIMARY KEY (`id`),
   KEY `FK_TRANSACTION_ACCOUNT_idx` (`account_id`),
   CONSTRAINT `FK_TRANSACTION_ACCOUNT` FOREIGN KEY (`account_id`)
   REFERENCES `account`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION

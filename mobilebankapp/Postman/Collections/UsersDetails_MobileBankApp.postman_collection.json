@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "7d0c368f-7f9c-462f-a09f-26d0154b7697",
+		"name": "UsersDetails_MobileBankApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37733478"
+	},
+	"item": [
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var user = response;\r",
+							"\r",
+							"    pm.expect(user.id).not.to.be.null;\r",
+							"    pm.expect(user.username).to.be.eql(\"Bob2021\");\r",
+							"    pm.expect(user.password).to.be.eql(\"test123\");\r",
+							"\r",
+							"    pm.environment.set(\"USER_ID\", user.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Bob2021\",\r\n    \"password\":\"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if user was created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var user = response;\r",
+							"\r",
+							"    pm.expect(user.username).to.be.eql(\"Bob2021\");\r",
+							"    pm.expect(user.password).to.be.eql(\"test123\");\r",
+							"\r",
+							"    var userId = pm.environment.get(\"USER_ID\");\r",
+							"    pm.expect(user.id).to.eql(parseInt(userId));\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check list of users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  var response = pm.response.json();\r",
+							"\r",
+							"  console.log(response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify if user exist in the list of users\", function(){\r",
+							"\r",
+							"var response = pm.response.json()\r",
+							"var userId = pm.environment.get(\"USER_ID\")\r",
+							"var user = response.find(u => u.id === userId)\r",
+							"    \r",
+							"    pm.expect(user.id).not.to.be.null;\r",
+							"    pm.expect(user.username).to.be.eql(\"Bob2021\");\r",
+							"    pm.expect(user.password).to.be.eql(\"test123\");\r",
+							"\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Details And Add It To Existing User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user details fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var userDetails = response;\r",
+							"\r",
+							"    pm.expect(userDetails.id).not.to.be.null;\r",
+							"    pm.expect(userDetails.firstName).to.be.eql(\"Robert\");\r",
+							"    pm.expect(userDetails.lastName).to.be.eql(\"Dylan\");\r",
+							"    pm.expect(userDetails.email).to.be.eql(\"bob@dylan.com\");\r",
+							"    pm.expect(userDetails.phoneNumber).to.be.eql(\"12345678\");\r",
+							"\r",
+							"    var userDetailsId = userDetails.id;\r",
+							"    pm.environment.set(\"USER_DETAILS_ID\", userDetailsId);\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Robert\",\r\n    \"lastName\":\"Dylan\",\r\n    \"email\":\"bob@dylan.com\",\r\n    \"phoneNumber\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}/details",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User details by user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user details fields\", function () {\r",
+							"  var response = pm.response.json();\r",
+							"  var userDetails = response;\r",
+							"\r",
+							"  pm.expect(userDetails.firstName).to.be.eql(\"Robert\");\r",
+							"  pm.expect(userDetails.lastName).to.be.eql(\"Dylan\");\r",
+							"  pm.expect(userDetails.email).to.be.eql(\"bob@dylan.com\");\r",
+							"  pm.expect(userDetails.phoneNumber).to.be.eql(\"12345678\");\r",
+							"\r",
+							"  var userDetailsId = pm.environment.get(\"USER_DETAILS_ID\");\r",
+							"\r",
+							"  pm.expect(userDetails.id).to.eql(parseInt(userDetailsId)); // Ensure both are numbers for comparison\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}/details",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var userDetails = response;\r",
+							"\r",
+							"    pm.expect(userDetails.firstName).to.be.eql(\"BOB\");\r",
+							"    pm.expect(userDetails.lastName).to.be.eql(\"Dylan\");\r",
+							"    pm.expect(userDetails.email).to.be.eql(\"bob@dylan.com\");\r",
+							"    pm.expect(userDetails.phoneNumber).to.be.eql(\"12345678\");\r",
+							"\r",
+							"    var userDetailsId = pm.environment.get(\"USER_DETAILS_ID\");\r",
+							"    pm.expect(userDetails.id).to.eql(parseInt(userDetailsId));    \r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{USER_DETAILS_ID}},\r\n    \"firstName\": \"BOB\",\r\n    \"lastName\": \"Dylan\",\r\n    \"email\": \"bob@dylan.com\",\r\n    \"phoneNumber\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}/details",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user details by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var userDetails = response;\r",
+							"\r",
+							"    pm.expect(userDetails.firstName).to.be.eql(\"BOB\");\r",
+							"    pm.expect(userDetails.lastName).to.be.eql(\"Dylan\");\r",
+							"    pm.expect(userDetails.email).to.be.eql(\"bob@dylan.com\");\r",
+							"    pm.expect(userDetails.phoneNumber).to.be.eql(\"12345678\");\r",
+							"\r",
+							"    var userDetailsId = pm.environment.get(\"USER_DETAILS_ID\");\r",
+							"    pm.expect(userDetails.id).to.eql(parseInt(userDetailsId));    \r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}/details",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if details were deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"  pm.response.to.have.status(404);\r",
+							"  var response = pm.response.json();\r",
+							"\r",
+							"  console.log(response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user details is deleted\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"  \r",
+							"    pm.expect(response.message).to.eql(\"user details not found\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}/details",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if user persists after deleting details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"    var user = response;\r",
+							"\r",
+							"    pm.expect(user.id).not.to.be.null;\r",
+							"    pm.expect(user.username).to.be.eql(\"Bob2021\");\r",
+							"    pm.expect(user.password).to.be.eql(\"test123\");\r",
+							"\r",
+							"    var userId = pm.environment.get(\"USER_ID\");\r",
+							"    pm.expect(user.id).to.eql(userId);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  var response = pm.response.json();\r",
+							"\r",
+							"  console.log(response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Deleted the correct user\", function(){\r",
+							"\r",
+							"    var user = pm.response.json();\r",
+							"    var userId = pm.environment.get(\"USER_ID\");\r",
+							"\r",
+							"    pm.expect(user.id).to.be.eqls(userId);\r",
+							"    pm.expect(user.username).to.be.eqls(\"Bob2021\");\r",
+							"    pm.expect(user.password).to.be.eqls(\"test123\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if the user was deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"  pm.response.to.have.status(404);\r",
+							"  var response = pm.response.json();\r",
+							"\r",
+							"  console.log(response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify user fields\", function () {\r",
+							"    \r",
+							"    var response = pm.response.json();\r",
+							"  \r",
+							"    pm.expect(response.message).to.eql(\"user not found\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if the deleted user is not in the user list anymore",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax error in the first test\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  var response = pm.response.json();\r",
+							"\r",
+							"  console.log(response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify if user exist in the list of users\", function(){\r",
+							"\r",
+							"var response = pm.response.json()\r",
+							"var userId = pm.environment.get(\"USER_ID\")\r",
+							"var user = response.find(u => u.id === userId)\r",
+							"    \r",
+							"    pm.expect(user).to.be.undefined;\r",
+							"\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}/users",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

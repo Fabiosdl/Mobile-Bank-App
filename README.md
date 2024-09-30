@@ -1,40 +1,89 @@
 # Mobile-Bank-App
 
-Backend Development
+# Mobile-Bank-App
 
-I developed the backend of a mobile banking application using Spring Boot. The project features a fully functional REST API, tested via Postman, and utilizes JPA/Hibernate for interaction with a MySQL database. The application is containerized with Docker for easy deployment and scalability. OpenAPI and Swagger-UI were used for comprehensive API documentation. Currently implementing Flyway for version-controlled database migrations.
+A mobile banking application backend developed with Spring Boot, providing RESTful API services. 
+The app allows users to manage their accounts, perform transactions, and interact with banking features. 
+It integrates MySQL for data storage and uses Docker for containerization to simplify deployment and scalability. 
+
+Key technologies:
+- **Spring Boot** for the backend API
+- **JPA/Hibernate** for database interaction
+- **MySQL** for persistent storage
+- **OpenAPI/Swagger-UI** for API documentation
+- **Docker** for containerization
+- **Postman** for integration testing
+
+### Features:
+- Secure account management
+- Transaction history tracking
+- REST API with full CRUD operations
+
+## How to Run the App
+
+1. **Install Docker**:
+   - Ensure Docker is installed on your computer. If not, download and install Docker from [here](https://www.docker.com/get-started).
+
+2. **Start Docker**:
+   - Open Docker Desktop and ensure it is running.
+
+3. **Navigate to the Project Directory**:
+   - Open a terminal and navigate to the directory where the project is located.
+
+4. **Verify Docker Files**:
+   - Confirm that both `Dockerfile` and `docker-compose.yml` are present in the directory.
+
+5. **Build the Docker Image**:
+   ```bash
+   docker build -t limabankapp .
+   (don't forget the "." after limabankapp)
+ 
+ 6. **Start the application**:
+   - Run the following command to start the containers:
+   ```bash
+   docker-compose up
+ 
+   - This will start 3 containers:
+      bank_api_service on port 8080
+      phpmyadmin on port 8090
+      mysql on port 3306
+    
+## Accessing the Database
+
+1. **Open phpMyAdmin**:
+   - Open your browser and go to: `localhost:8090` to access **phpMyAdmin**.
+
+2. **Login Credentials**:
+   - On the login page, enter the following credentials (as specified in the `docker-compose.yml` file):
+     - **Username**: `fabiolima`
+     - **Password**: `fabiolima123`
+
+3. **View the Database Schema**:
+   - Once logged in, you will see the schema `mobilebankapp`, which stores the application's data.
 
 
-*** How to Run the App ***
+## Running Integration Tests with Postman
 
- 1 - Install docker on your computer
- 2 - Initialize docker for desktop
- 3 - Open the terminal and go to the directory where the project is located
- 4 - check if the file Dockerfile and dockercompose are in the directory you are current on
- 5 - if so, type: docker build -t limabankapp .   
- 6 - (Don't forget the "." after limabankapp)
- 7 - Now that you have an image of the application, type: docker-compose up
- 8 - Now you have 3 containers running together:
-    -    bank_api_service on port (8080)
-    -    phpmyadin on port (8090)
-    -    mysql (3306)
+1. **Navigate to the Postman Directory**:
+   - In the project directory, locate the `Postman` folder, which contains:
+     - **Environment**: Postman environment configuration files.
+     - **Collections**: A set of API request files.
 
-*** Accessing the databases ***
+2. **Import Files into Postman**:
+   - Open **Postman** and import both the environment and collection files.
 
- 1 - Open your browser and type localhost:8090
- 2 - a phpmyadmin login page will open
- 3 - use the credentials on your docker-compose file
-    username: fabiolima
-    passworkd: fabiolima123
- 4 - The schema mobilebankapp is the one used to storage data
+3. **Select the Collection**:
+   - Once imported, go to the **Collections** tab in Postman and select the imported collection.
 
-*** Using Postman for Integrational Testing ***
+4. **Run the Collection**:
+   - Execute the collection to run the integration tests. These tests include scripts designed to verify that the API is functioning correctly and responding as expected.
 
- 1 - On the directory Postman there is a directory called Environment and Collections
- 2 - Open Postman and Import the files from both directories
- 3 - On Postman click on Collections and run the collections.
- 4 - The collections have scripts to check if the API is responding accordingly
+## API Documentation with OpenAPI/Swagger
 
-*** Using OpenAPI / Swagger ***
+You can view and interact with the API documentation using the Swagger UI:
 
- 1 - type localhost:8080/limabank-ui.html
+1. **Access Swagger UI**:
+   - Open your browser and go to: `localhost:8080/limabank-ui.html`.
+
+2. **Explore API Endpoints**:
+   - The Swagger UI provides a detailed, interactive interface where you can explore all available API endpoints and test their functionality directly from your browser.

@@ -446,7 +446,7 @@
 							"    \r",
 							"    var response = pm.response.json();\r",
 							"  \r",
-							"    pm.expect(response.message).to.eql(\"user details not found\");\r",
+							"    pm.expect(response.message).to.eql(\"Details are not set for this user\");\r",
 							"\r",
 							"});"
 						],
@@ -607,7 +607,7 @@
 							"    \r",
 							"    var response = pm.response.json();\r",
 							"  \r",
-							"    pm.expect(response.message).to.eql(\"user not found\");\r",
+							"    pm.expect(response.message).to.eql(\"User not found\");\r",
 							"\r",
 							"});"
 						],

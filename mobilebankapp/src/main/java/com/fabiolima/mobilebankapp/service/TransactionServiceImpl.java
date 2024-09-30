@@ -8,9 +8,7 @@ import com.fabiolima.mobilebankapp.exceptions.NotFoundException;
 import com.fabiolima.mobilebankapp.repository.TransactionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -156,7 +154,7 @@ public class TransactionServiceImpl implements TransactionService{
         // verify if the transaction status is pending
         if(tempTransaction.getTransactionStatus() != Transaction.TransactionStatus.FAILED)
             throw new ForbiddenException(
-                    "A COMPLETED OR PENDING transaction cannot be deleted");
+                    "A COMPLETED OR FAILED transaction cannot be updated or deleted");
         transactionRepository.deleteById(transactionId);
 
         return tempTransaction;

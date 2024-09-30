@@ -187,7 +187,7 @@
 							"",
 							"    pm.expect(account.id).not.to.be.null;",
 							"    pm.expect(account.branchCode).to.be.eql(\"123\");    ",
-							"    pm.expect(account.accountCode).to.be.eql(\"000999-7\");",
+							"    pm.expect(account.accountCode).to.be.eql(\"000999-8\");",
 							"    pm.expect(account.balance).to.be.eql(1000.00);",
 							"    pm.expect(account.accountType).to.be.eql(\"CURRENT\");",
 							"    ",
@@ -205,7 +205,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"branchCode\": \"123\",\n    \"accountCode\": \"000999-7\",\n    \"balance\": 1000.0,\n    \"accountType\":\"CURRENT\"\n}",
+					"raw": "{\n\t\"branchCode\": \"123\",\n    \"accountCode\": \"000999-8\",\n    \"balance\": 1000.0,\n    \"accountType\":\"CURRENT\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,7 +245,7 @@
 							"",
 							"    pm.expect(account.id).not.to.be.null;",
 							"    pm.expect(account.branchCode).to.be.eql(\"123\");    ",
-							"    pm.expect(account.accountCode).to.be.eql(\"000999-7\");",
+							"    pm.expect(account.accountCode).to.be.eql(\"000999-8\");",
 							"    pm.expect(account.balance).to.be.eql(1000.00);",
 							"    pm.expect(account.accountType).to.be.eql(\"CURRENT\");",
 							"",
@@ -304,7 +304,7 @@
 							"var account = response.find(a => a.id === accountId);\r",
 							"    \r",
 							"    pm.expect(account.branchCode).to.be.eql(\"123\");    \r",
-							"    pm.expect(account.accountCode).to.be.eql(\"000999-7\");\r",
+							"    pm.expect(account.accountCode).to.be.eql(\"000999-8\");\r",
 							"    pm.expect(account.balance).to.be.eql(1000.00);\r",
 							"    pm.expect(account.accountType).to.be.eql(\"CURRENT\");\r",
 							"\r",
@@ -350,7 +350,7 @@
 							"    var transaction = response;",
 							"    ",
 							"    pm.expect(transaction.id).not.to.be.null;",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(400);",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"PENDING\");",
@@ -372,7 +372,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"transactionType\": \"DEPOSIT\",\n    \"amount\": 400.0,\n    \"description\": \"guitar lessons course\",\n    \"transactionStatus\": \"PENDING\"\n}",
+					"raw": "{\n    \"transactionType\": \"WITHDRAWAL\",\n    \"amount\": 400.0,\n    \"description\": \"guitar lessons course\",\n    \"transactionStatus\": \"PENDING\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -413,7 +413,7 @@
 							"    var transaction = response;",
 							"    ",
 							"    pm.expect(transaction.id).not.to.be.null;",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(400);",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"PENDING\");",
@@ -482,7 +482,7 @@
 							"var transaction = response.find(t => t.id === transactionId);\r",
 							"    \r",
 							"    pm.expect(transaction.id).not.to.be.null;\r",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    \r",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    \r",
 							"    pm.expect(transaction.amount).to.be.eql(400);\r",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");\r",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"PENDING\");\r",
@@ -586,7 +586,7 @@
 							"    var response = pm.response.json();",
 							"    var transaction = response;",
 							"    ",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(400);",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"COMPLETED\");",
@@ -658,7 +658,7 @@
 							"    var response = pm.response.json();",
 							"    var account = response;",
 							"",
-							"    pm.expect(account.balance).to.be.eql(1400.00);",
+							"    pm.expect(account.balance).to.be.eql(600.00);",
 							"",
 							"    var accountId = pm.environment.get(\"ACCOUNT_ID\");",
 							"    pm.expect(account.id).to.eql(accountId);",
@@ -704,7 +704,7 @@
 							"",
 							"    var response = pm.response.json();",
 							"    ",
-							"    pm.expect(response.message).to.be.eql(\"A COMPLETED OR CANCELED transaction cannot be updated or deleted\");    ",
+							"    pm.expect(response.message).to.be.eql(\"A COMPLETED OR FAILED transaction cannot be updated or deleted\");    ",
 							"});"
 						],
 						"type": "text/javascript",
@@ -757,7 +757,7 @@
 							"",
 							"    var response = pm.response.json();",
 							"",
-							"    pm.expect(response.message).to.be.eql(\"A COMPLETED OR PENDING transaction cannot be updated or deleted\");",
+							"    pm.expect(response.message).to.be.eql(\"A COMPLETED OR FAILED transaction cannot be updated or deleted\");",
 							"    ",
 							"});"
 						],
@@ -813,7 +813,7 @@
 							"    var transaction = response;",
 							"    ",
 							"    pm.expect(transaction.id).not.to.be.null;",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(400);",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"COMPLETED\");",
@@ -885,7 +885,7 @@
 							"var transaction = response.find(t => t.id === transactionId);\r",
 							"    \r",
 							"    pm.expect(transaction.id).not.to.be.null;\r",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    \r",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    \r",
 							"    pm.expect(transaction.amount).to.be.eql(400);\r",
 							"    pm.expect(transaction.description).to.be.eql(\"guitar lessons course\");\r",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"COMPLETED\");\r",
@@ -944,7 +944,7 @@
 							"    var transaction = response;",
 							"    ",
 							"    pm.expect(transaction.id).not.to.be.null;",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(357.0);",
 							"    pm.expect(transaction.description).to.be.eql(\"June supermarket\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"PENDING\");",
@@ -966,7 +966,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"transactionType\": \"WITHDRAWAL\",\n    \"amount\": 357.0,\n    \"description\": \"June supermarket\",\n    \"transactionStatus\": \"PENDING\"\n}",
+					"raw": "{\n    \"transactionType\": \"DEPOSIT\",\n    \"amount\": 357.0,\n    \"description\": \"June supermarket\",\n    \"transactionStatus\": \"PENDING\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1007,7 +1007,7 @@
 							"    var transaction = response;",
 							"    ",
 							"    pm.expect(transaction.id).not.to.be.null;",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(357.0);",
 							"    pm.expect(transaction.description).to.be.eql(\"June supermarket\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"PENDING\");",
@@ -1066,7 +1066,7 @@
 							"    var response = pm.response.json();",
 							"    var account = response;",
 							"",
-							"    pm.expect(account.balance).to.be.eql(1400.00);",
+							"    pm.expect(account.balance).to.be.eql(600.00);",
 							"",
 							"    var accountId = pm.environment.get(\"ACCOUNT_ID\");",
 							"    pm.expect(account.id).to.eql(accountId);",
@@ -1113,7 +1113,7 @@
 							"    var response = pm.response.json();",
 							"    var transaction = response;",
 							"    ",
-							"    pm.expect(transaction.transactionType).to.be.eql(\"WITHDRAWAL\");    ",
+							"    pm.expect(transaction.transactionType).to.be.eql(\"DEPOSIT\");    ",
 							"    pm.expect(transaction.amount).to.be.eql(357.0);",
 							"    pm.expect(transaction.description).to.be.eql(\"June supermarket\");",
 							"    pm.expect(transaction.transactionStatus).to.be.eql(\"COMPLETED\");",
@@ -1144,7 +1144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": {{TRANSACTION_ID}},\n    \"transactionType\": \"WITHDRAWAL\",\n    \"amount\": 357.0,\n    \"description\": \"June supermarket\",\n    \"transactionStatus\": \"COMPLETED\"\n\n}\n",
+					"raw": "{\n    \"id\": {{TRANSACTION_ID}},\n    \"transactionType\": \"DEPOSIT\",\n    \"amount\": 357.0,\n    \"description\": \"June supermarket\",\n    \"transactionStatus\": \"COMPLETED\"\n\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1185,7 +1185,7 @@
 							"    var response = pm.response.json();",
 							"    var account = response;",
 							"",
-							"    pm.expect(account.balance).to.be.eql(1043.00);",
+							"    pm.expect(account.balance).to.be.eql(957.00);",
 							"",
 							"    var accountId = pm.environment.get(\"ACCOUNT_ID\");",
 							"    pm.expect(account.id).to.eql(accountId);",
@@ -1234,8 +1234,8 @@
 							"",
 							"    pm.expect(account.id).to.be.eql(parseInt(accountId));",
 							"    pm.expect(account.branchCode).to.be.eql(\"123\");    ",
-							"    pm.expect(account.accountCode).to.be.eql(\"000999-7\");",
-							"    pm.expect(account.balance).to.be.eql(1043.00);",
+							"    pm.expect(account.accountCode).to.be.eql(\"000999-8\");",
+							"    pm.expect(account.balance).to.be.eql(957.00);",
 							"    pm.expect(account.accountType).to.be.eql(\"CURRENT\");",
 							"    ",
 							"});"

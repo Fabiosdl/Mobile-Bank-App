@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> handleNotFound(NotFoundException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<NotFoundException> handleNotFound(NotFoundException ex){
+        return new ResponseEntity<>(ex, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<String> handleBadRequest(BadRequestException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<BadRequestException> handleBadRequest(BadRequestException ex){
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<String> handleConflictException(ConflictException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    public ResponseEntity<ConflictException> handleConflictException(ConflictException ex){
+        return new ResponseEntity<>(ex, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(ForbiddenException.class)
-    public ResponseEntity<String> handleForbiddenException(ForbiddenException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    public ResponseEntity<ForbiddenException> handleForbiddenException(ForbiddenException ex){
+        return new ResponseEntity<>(ex, HttpStatus.FORBIDDEN);
     }
 }

@@ -36,13 +36,13 @@ Key technologies:
 5. **Build the Docker Image**:
    ```bash
    docker build -t limabankapp .
-   (don't forget the "." after limabankapp)
+   ```
  
- 6. **Start the application**:
+6. **Start the application**:
    - Run the following command to start the containers:
    ```bash
    docker-compose up
- 
+   ```
    - This will start 3 containers:
       bank_api_service on port 8080
       phpmyadmin on port 8090

@@ -19,12 +19,8 @@ target/
 *.iml
 *.ipr
 
-# Ignore MySQL socket file
-MySQL/data/mysql.sock
-
-# Ignore the entire MySQL data directory
+# Ignore MySQL/data
 MySQL/data/
-
 
 ### NetBeans ###
 /nbproject/private/

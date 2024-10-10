@@ -45,6 +45,15 @@ public class Transaction {
 
     public Transaction(){}
 
+    public Transaction(TransactionType transactionType, double amount, String description,
+                       TransactionStatus transactionStatus){
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.description = description;
+        this.transactionDate = OffsetDateTime.now();
+        this.transactionStatus = transactionStatus;
+    }
+
     public int getId() {
         return id;
     }

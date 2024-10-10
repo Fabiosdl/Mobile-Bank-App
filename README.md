@@ -4,15 +4,16 @@ A mobile banking application backend developed with Spring Boot, providing RESTf
 The app allows users to manage their accounts, perform transactions, and interact with banking features. 
 It integrates MySQL for data storage and uses Docker for containerization to simplify deployment and scalability. 
 
-Key technologies:
+## Key technologies:
 - **Spring Boot** for the backend API
 - **JPA/Hibernate** for database interaction
 - **MySQL** for persistent storage
 - **OpenAPI/Swagger-UI** for API documentation
 - **Docker** for containerization
 - **Postman** for integration testing
+- **Git** for version control
 
-### Features:
+## Features:
 - Secure account management
 - Transaction history tracking
 - REST API with full CRUD operations

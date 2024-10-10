@@ -57,23 +57,11 @@ public class TransactionServiceImpl implements TransactionService{
         OffsetDateTime transactionDate = OffsetDateTime.now();
         theTransaction.setTransactionDate(transactionDate);
 
-        System.out.println(transactionDate);
-
-        // only change the account balance if the transaction status is equal to complete
-        if(theTransaction.getTransactionStatus() == Transaction.TransactionStatus.COMPLETED){
-            double transactionValue = theTransaction.getAmount();
-            double currentAccountAmount = tempAccount.getBalance();
-            double newAccountAmount = currentAccountAmount + transactionValue;
-            tempAccount.setBalance(newAccountAmount);
-        }
-
         // add transaction to account
         tempAccount.addTransactionToAccount(theTransaction);
 
         // save account with new transaction in the database
         Account savedAccount = accountService.saveAccount(tempAccount);
-
-        System.out.println(savedAccount.getTransactions().getLast().getTransactionDate());
 
         // retrieve and return the transaction that is saved in the saved account
         return savedAccount.getTransactions().getLast();
@@ -89,30 +77,25 @@ public class TransactionServiceImpl implements TransactionService{
         // retrieve current transaction. If status is being changed from pending to completed,
         // update the account balance.
         Transaction currentTransaction = findTransactionById(transactionId);
-        if(currentTransaction.getTransactionStatus() == Transaction.TransactionStatus.PENDING &&
-            newTransaction.getTransactionStatus() == Transaction.TransactionStatus.COMPLETED){
+
+        if(isStatusTransitionValid(currentTransaction, newTransaction)){
 
             // change the status of the current Transaction to Completed
-            currentTransaction.setTransactionStatus(Transaction.TransactionStatus.COMPLETED);
+            currentTransaction.setTransactionStatus(newTransaction.getTransactionStatus());
 
-            // check if the amount of the new transaction is the same as the current transaction
-            Account theAccount = accountService.findAccountById(accountId);
-            double newAccountBalance = checkAmountTransactionAndGetNewAccountAmount(newTransaction, currentTransaction, theAccount);
+            if(newTransaction.getTransactionStatus()== Transaction.TransactionStatus.COMPLETED){
+                // check if the amount of the new transaction is the same as the current transaction
+                Account theAccount = accountService.findAccountById(accountId);
+                double newAccountBalance = checkAmountTransactionAndGetNewAccountAmount(newTransaction, currentTransaction, theAccount);
 
-            // and update the account balance with the new account balance
-            theAccount.setBalance(newAccountBalance);
+                // and update the account balance with the new account balance
+                theAccount.setBalance(newAccountBalance);
 
-            // save the Account in databases, which will also save the transaction
-            accountService.saveAccount(theAccount);
+                // save the Account in databases, which will also save the transaction
+                accountService.saveAccount(theAccount);
+            }
 
-            return findTransactionById(transactionId);
-        }
-        
-        // if status is being changed from pending to failed, just change the status in the current transaction
-        else if(currentTransaction.getTransactionStatus() == Transaction.TransactionStatus.PENDING &&
-                newTransaction.getTransactionStatus() == Transaction.TransactionStatus.FAILED){
-            currentTransaction.setTransactionStatus(Transaction.TransactionStatus.FAILED);
-            return saveTransaction(currentTransaction);
+            return currentTransaction;
         }
 
         else throw new ForbiddenException(
@@ -123,6 +106,12 @@ public class TransactionServiceImpl implements TransactionService{
         if(bodyTransaction.getId() != (transactionId))
             throw new BadRequestException("Transaction id in the parameter does not " +
                     "match the transaction id in the body");
+    }
+
+    private boolean isStatusTransitionValid(Transaction currentTransaction, Transaction newTransaction){
+        return currentTransaction.getTransactionStatus() == Transaction.TransactionStatus.PENDING &&
+                (newTransaction.getTransactionStatus() == Transaction.TransactionStatus.COMPLETED ||
+                        newTransaction.getTransactionStatus() == Transaction.TransactionStatus.FAILED);
     }
 
     // method to guarantee that only transaction status is being updated from pending to completed or to failed

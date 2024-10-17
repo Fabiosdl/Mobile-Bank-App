@@ -141,7 +141,7 @@ public class TransactionServiceImpl implements TransactionService{
         Transaction tempTransaction = findTransactionById(transactionId);
 
         // verify if the transaction status is pending
-        if(tempTransaction.getTransactionStatus() != Transaction.TransactionStatus.FAILED)
+        if(tempTransaction.getTransactionStatus() != Transaction.TransactionStatus.PENDING)
             throw new ForbiddenException(
                     "A COMPLETED OR FAILED transaction cannot be updated or deleted");
         transactionRepository.deleteById(transactionId);

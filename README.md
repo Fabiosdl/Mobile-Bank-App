@@ -6,6 +6,7 @@ It integrates MySQL for data storage and uses Docker for containerization to sim
 
 ## Key technologies:
 - **Spring Boot** for the backend API
+- **JUnit5 & Mockito** for unit testing
 - **JPA/Hibernate** for database interaction
 - **MySQL** for persistent storage
 - **OpenAPI/Swagger-UI** for API documentation

@@ -1,7 +1,7 @@
 # Mobile-Bank-App
 
-A mobile banking application backend developed with Spring Boot, providing RESTful API services. 
-The app allows users to manage their accounts, perform transactions, and interact with banking features. 
+An online banking API developed with Spring Boot, providing RESTful API services. 
+The API allows users to manage their accounts, perform transactions, and interact with banking features. 
 It integrates MySQL for data storage and uses Docker for containerization to simplify deployment and scalability. 
 
 ## Key technologies:
